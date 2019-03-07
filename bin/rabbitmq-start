@@ -1,6 +1,8 @@
 #!/bin/bash
 
+set -x
+
 export RABBITMQ_NODENAME=rabbit@$(hostname -i)
 chown -R rabbitmq:rabbitmq /data
 
-exec rabbitmq-server
+exec rabbitmq-server $@
