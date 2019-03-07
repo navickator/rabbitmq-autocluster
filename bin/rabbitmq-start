@@ -2,7 +2,7 @@
 
 set -x
 
-export RABBITMQ_NODENAME=rabbit@$(hostname -i)
+export RABBITMQ_NODENAME=rabbit@$(hostname -i|awk -F' ' '{print $1}')
 chown -R rabbitmq:rabbitmq /data
 
 exec rabbitmq-server $@
