@@ -1,0 +1,6 @@
+#!/bin/bash
+
+
+chown -R rabbitmq:rabbitmq /data
+export RABBITMQ_NODENAME=rabbit@$(hostname -i)
+exec rabbitmq-server $@
