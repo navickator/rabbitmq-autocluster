@@ -2,7 +2,11 @@
 
 set -x
 
-export RABBITMQ_NODENAME=rabbit@$(hostname -i|awk -F' ' '{print $1}')
+echo "Ip adress:" $(hostname -I)
+
+export IP=$(hostname -I | cut -d' ' -f1)
+export RABBITMQ_NODENAME=rabbit@${IP}
+
 chown -R rabbitmq:rabbitmq /data
 
 exec rabbitmq-server $@
