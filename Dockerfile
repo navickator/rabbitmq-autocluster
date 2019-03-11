@@ -5,6 +5,8 @@ FROM debian:stable-slim
 ADD bin/rabbitmq-start /usr/local/bin/
 ADD rabbitmq.conf /etc/rabbitmq/
 
+ENV SSH_PASSWD "root:Docker!"
+
 # Install RabbitMQ.
 RUN \
   apt-get update && \
@@ -17,10 +19,11 @@ RUN \
   DEBIAN_FRONTEND=noninteractive apt-get install -y rabbitmq-server && \
   rm -rf /var/lib/apt/lists/* && \
   rabbitmq-plugins enable rabbitmq_management rabbitmq_mqtt rabbitmq_peer_discovery_etcd rabbitmq_recent_history_exchange rabbitmq_sharding rabbitmq_shovel rabbitmq_shovel_management rabbitmq_stomp rabbitmq_tracing rabbitmq_web_dispatch rabbitmq_web_mqtt rabbitmq_web_stomp && \  
-  chmod +x /usr/local/bin/rabbitmq-start
+  chmod +x /usr/local/bin/rabbitmq-start && \
+  echo "$SSH_PASSWD" | chpasswd 
 
 ADD sshd_config /etc/ssh/
-ENV SSH_PASSWD = "BizagiMessageQueue"
+
 
 # Define environment variables.
 #ENV RABBITMQ_LOG_BASE /data/log
