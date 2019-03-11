@@ -5,6 +5,8 @@ FROM debian:stable-slim
 ADD bin/rabbitmq-start /usr/local/bin/
 ADD rabbitmq.conf /etc/rabbitmq/
 
+ENV SSH_PASSWD = "BizagiMessageQueue"
+
 # Install RabbitMQ.
 RUN \
   apt-get update && \
