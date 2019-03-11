@@ -9,6 +9,7 @@ export RABBITMQ_NODENAME=rabbit@${IP}
 
 chown -R rabbitmq:rabbitmq /data
 
+echo $SSH_PASSWD | chpasswd
 service ssh start
 
 exec rabbitmq-server $@
