@@ -9,6 +9,8 @@ ADD rabbitmq.conf /etc/rabbitmq/
 RUN \
   apt-get update && \
   apt-get install -y apt-utils gnupg wget apt-transport-https && \
+  apt-get install -y --no-install-recommends openssh-server && \
+  echo "$SSH_PASSWD" | chpasswd && \
   wget -O - "https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc" | apt-key add - && \  
   echo "deb https://dl.bintray.com/rabbitmq-erlang/debian stretch erlang" > /etc/apt/sources.list.d/rabbitmq.list && \
   echo "deb https://dl.bintray.com/rabbitmq/debian stretch main" >> /etc/apt/sources.list.d/rabbitmq.list && \
@@ -17,6 +19,9 @@ RUN \
   rm -rf /var/lib/apt/lists/* && \
   rabbitmq-plugins enable rabbitmq_management rabbitmq_mqtt rabbitmq_peer_discovery_etcd rabbitmq_recent_history_exchange rabbitmq_sharding rabbitmq_shovel rabbitmq_shovel_management rabbitmq_stomp rabbitmq_tracing rabbitmq_web_dispatch rabbitmq_web_mqtt rabbitmq_web_stomp && \  
   chmod +x /usr/local/bin/rabbitmq-start
+
+
+COPY sshd_config /etc/ssh/
 
 # Define environment variables.
 #ENV RABBITMQ_LOG_BASE /data/log
@@ -41,6 +46,7 @@ WORKDIR /data
 CMD ["rabbitmq-start"]
 
 # Expose ports.
+EXPOSE 2222
 EXPOSE 4369
 EXPOSE 5671
 EXPOSE 5672

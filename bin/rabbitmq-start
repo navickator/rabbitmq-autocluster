@@ -9,4 +9,6 @@ export RABBITMQ_NODENAME=rabbit@${IP}
 
 chown -R rabbitmq:rabbitmq /data
 
+service ssh start
+
 exec rabbitmq-server $@
