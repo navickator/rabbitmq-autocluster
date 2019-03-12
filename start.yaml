@@ -12,5 +12,8 @@ services:
        AUTOCLUSTER_LOG_LEVEL: debug
        RABBITMQ_USE_LONGNAME: "true"
      ports:
-         - "15673:15672"
-         
+         - "80:15672"
+         - "4369:4369"
+         - "5671:5671"
+         - "5672:5672"
+         - "25672:25672"

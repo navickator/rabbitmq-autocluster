@@ -8,7 +8,7 @@ ADD rabbitmq.conf /etc/rabbitmq/
 # Install RabbitMQ.
 RUN \
   apt-get update && \
-  apt-get install -y apt-utils gnupg wget apt-transport-https && \
+  apt-get install -y apt-utils gnupg wget apt-transport-https dnsutils 2ping libnet-ifconfig-wrapper-perl iputils-ping nmap &&\
   wget -O - "https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc" | apt-key add - && \  
   echo "deb https://dl.bintray.com/rabbitmq-erlang/debian stretch erlang" > /etc/apt/sources.list.d/rabbitmq.list && \
   echo "deb https://dl.bintray.com/rabbitmq/debian stretch main" >> /etc/apt/sources.list.d/rabbitmq.list && \
