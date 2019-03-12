@@ -4,7 +4,7 @@ set -x
 
 echo "Ip adress:" $(hostname -I)
 
-export IP=$(hostname -I | rev | cut -d' ' -f1 | rev)
+export IP=$(hostname -I | rev | xargs | cut -d' ' -f1 | rev)
 export RABBITMQ_NODENAME=rabbit@${IP}
 
 chown -R rabbitmq:rabbitmq /data
